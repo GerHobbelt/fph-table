@@ -21,11 +21,11 @@ arm64 platform. It can be seen that `fph::DynamicFphMap` has a clear speed advan
 
 For a comparison of more datasets and more operation types, please refer to the [benchmark](https://github.com/renzibei/hashtable-bench).
 
-![fig1](./show/3990x/figs/<mask_split_bits_uint64_t,uint64_t>,avg_hit_find_with_rehash.png)
+![fig1](./show/3990x/figs/mask_split_bits_uint64_t,uint64_t,avg_hit_find_with_rehash.png)
 
 <center>Figure 1: Look up keys in the map with 0.9 max_load_factor, tested in AMD 3990x</center>
 
-![fig2](./show/m1-max/figs/<mask_split_bits_uint64_t,uint64_t>,avg_hit_find_with_rehash.png)
+![fig2](./show/m1-max/figs/mask_split_bits_uint64_t,uint64_t,avg_hit_find_with_rehash.png)
 
 <center>Figure 2: Look up keys in the map with 0.9 max_load_factor, tested in Apple M1 Max</center>
 
@@ -68,6 +68,7 @@ the hash no longer a perfect hash, we will rebuild the hash table.
 
 
 ## Difference compared to std
+
 1. The template parameter `SeedHash` is different from the `Hash` in STL, it has to be a functor
    accept two arguments: both the key and the seed.
 (There is also a no-seed version hash table, see following content).
@@ -93,12 +94,14 @@ As we use metadata to indicate whether the slots are empty in `fph::MetaFphSet`
 and `fph::MetaFphMap`, they don't need a random key generator anymore.
 
 ## No seed hash version
+
 The normal version of fph table requires a seed hash function. There exists a no-seed version where
 a no-seed hash function like `std::hash` can be used. You can switch to `noseed` branch to use the
 no-seed version codes. See [no seed version](#No-seed-version) in the
 [Instructions for use section](#Instructions-for-use) for more information.
 
 ## Build
+
 Requirement: C++ standard not older than C++17; currently only tested in GCC/Clang/MSVC (no compile error in MSVC).
 
 FPH library is a header-only library. So you can just add the header file to the header search path
@@ -107,6 +110,7 @@ of your project to include it.
 Or, you can use FPH with CMake. Put this repo as a subdirectory under your project and then use it as a
 submodule of your CMake project. For instance, if you put the `fph-table` directory under the `third-party`
 directory of your project, you can add the following codes to your `CMakeLists.txt`
+
 ```cmake
 add_subdirectory(third-party/fph-table)
 target_link_libraries(your_target PRIVATE fph::fph_table)
@@ -117,6 +121,7 @@ When you have added the `fph-table` directory to your header, use can include th
 `#include "fph/dynamic_fph_table.h"` to your codes.
 
 ## Test
+
 To test that fph has no compile and run errors on your system, you can use the test code we
 provide using the following commands.
 
@@ -242,6 +247,7 @@ int main() {
 ```
 
 ## Instructions for use
+
 ### Calculate the distinct slot index only
 
 You can use the containers we provided to replace `std::unordered_set` or `std::unrodered_map` if
@@ -321,6 +327,7 @@ collision. So we strongly recommend using the seeded version of the fph table wh
 is string.
 
 You can switch to the no seed version by change to the `noseed` branch.
+
 ```
 git checkout noseed
 ```
