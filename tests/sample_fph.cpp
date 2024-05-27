@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string_view>
 
+#include "monolithic_examples.h"
+
 using namespace std::literals;
 
 class TestKeyClass {
@@ -179,6 +181,11 @@ void TestFphMap() {
     SampleTest<FphMetaMap, TestKeyClass, MappedType>();
 
 }
+
+
+#if defined(BUILD_MONOLITHIC)
+#define main    fph_sample_test_main
+#endif
 
 int main() {
     TestFphMap();

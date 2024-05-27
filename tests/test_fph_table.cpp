@@ -11,7 +11,6 @@
 #include <random>
 
 
-
 #define TEST_TABLE_CORRECT 1
 
 #ifdef FPH_HAVE_EXCEPTION

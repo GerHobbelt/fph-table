@@ -5,6 +5,8 @@
 #include <cinttypes>
 #include "fph/meta_fph_table.h"
 
+#include "monolithic_examples.h"
+
 
 uint64_t FastRand(uint64_t x) {
     x ^= x >> 33U;
@@ -12,6 +14,10 @@ uint64_t FastRand(uint64_t x) {
     x ^= x >> 33U;
     return x;
 }
+
+#if defined(BUILD_MONOLITHIC)
+#define main    fph_bits_array_test_main
+#endif
 
 int main() {
 
